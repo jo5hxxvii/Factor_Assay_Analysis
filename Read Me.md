@@ -67,7 +67,8 @@ factor_assay_analysis(reference_data, sample_datasets)
 ```
 
 # NOTE
-Function can be modified to return the Factor VIII instead of just printing them out
+- Function can be modified to return the Factor VIII instead of just printing them out
+- There is a helper function included called 'getIntersect' that simply gets the intersection between to lines on a semi log graph
 
 ## License
 This code is absolutely free.
