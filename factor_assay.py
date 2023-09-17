@@ -2,18 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def getIntersect(x1, y1, x2, y2, x3, y3, x4, y4):
-    # Check if the second line is horizontal (constant y-value)
-    x1_log = np.log(x1)
-    x2_log = np.log(x2)
-    x3_log = np.log(x3)
-    x4_log = np.log(x4)
-    
-    denom = (x1_log - x2_log) * (x3_log - x4_log) - (y1 - y2) * (x3_log - x4_log)
-    px_log = ((x1_log * y2 - y1 * x2_log) * (x3_log - x4_log) - (x1_log - x2_log) * (x3_log * y4 - y3 * x4_log)) / denom
-    py = ((x1_log * y2 - y1 * x2_log) * (y3 - y4) - (y1 - y2) * (x3_log * y4 - y3 * x4_log)) / denom
-    px = np.exp(px_log)
-    
-    return px
+    x1 = np.log(x1)
+    x2 = np.log(x2)
+    x3 = np.log(x3)
+    x4 = np.log(x4)
+
+    denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    px = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denom
+    py = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / denom
+
+    return np.exp(px)
 
 def factor_assay_analysis(reference, samples):
     # Reference data
@@ -66,7 +64,7 @@ def factor_assay_analysis(reference, samples):
         x_intersection = getIntersect(
             x_range_reference[0], reference_fit_line(np.log(x_range_reference))[0],
             x_range_reference[-1], reference_fit_line(np.log(x_range_reference))[-1],
-            1, y_intersection, 100, y_intersection
+            100, y_intersection, 1, y_intersection
         )
 
         factor_viii_values.append(x_intersection)
